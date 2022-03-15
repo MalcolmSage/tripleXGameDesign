@@ -3,10 +3,10 @@
 void PrintIntroduction(int Difficulty)
 {
     std::cout << "\n\nYou are a secret agent breaking into a level " << Difficulty;
-    std::cout << " secure server room.\n Enter the correct code to continue...\n\n";
+    std::cout << " secure server room.\nEnter the correct code to continue...\n\n";
 }
 
-bool PlayGame(int Difficulty)
+bool PlayGame(int Difficulty, int Max)
 {
     // Print the game setting to terminal
     PrintIntroduction(Difficulty);
@@ -34,31 +34,41 @@ bool PlayGame(int Difficulty)
     // Check if the player guess is correct
     if (GuessSum == CodeSum && GuessProduct == CodeProduct)
     {
-        std::cout << "You did it!\n";
-        return true;
+        if (Max >= Difficulty)
+        {
+            return true;
+        }
+        else
+        {
+            std::cout << "\n***You made it past this hurdle! On to the next one.***\n";
+            return true;
+        }
     }
     else
     {
-        std::cout << "You didn't do it.\n";
+        std::cout << "\n***That wasn't it.. but keep pushing through!***\n";
         return false;
     }
 }
 
 int main()
 {
+    const int MaxDifficulty = 5;
     int LevelDifficulty = 1;
-    while (LevelDifficulty < 10)
+
+    while (LevelDifficulty <= MaxDifficulty) // Loop until all levels are completed
     {
-        bool bLevelComplete = PlayGame(LevelDifficulty);
-        std::cin.clear(); //Ckears aby errors
-        std::cin.ignore();  // Discards the buffer
+        bool bLevelComplete = PlayGame(LevelDifficulty, MaxDifficulty);
+        std::cin.clear();  // Clears aby errors
+        std::cin.ignore(); // Discards the buffer
 
         if (bLevelComplete)
         {
             /* Increase level difficulty */
             ++LevelDifficulty;
         }
-        
     }
+
+    std::cout << "\n You're through the last door! Amazing work operative.\n";
     return 0;
 }
