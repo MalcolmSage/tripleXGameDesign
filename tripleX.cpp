@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 
 void PrintIntroduction(int Difficulty)
 {
@@ -12,9 +13,9 @@ bool PlayGame(int Difficulty, int Max)
     PrintIntroduction(Difficulty);
 
     // generate three numbers for code breaking
-    const int CodeA = 4;
-    const int CodeB = 3;
-    const int CodeC = 2;
+    const int CodeA = rand() % Difficulty + Difficulty;
+    const int CodeB = rand() % Difficulty + Difficulty;
+    const int CodeC = rand() % Difficulty + Difficulty;
 
     const int CodeSum = CodeA + CodeB + CodeC;
     const int CodeProduct = CodeA * CodeB * CodeC;
@@ -34,7 +35,7 @@ bool PlayGame(int Difficulty, int Max)
     // Check if the player guess is correct
     if (GuessSum == CodeSum && GuessProduct == CodeProduct)
     {
-        if (Max >= Difficulty)
+        if (Difficulty >= Max)
         {
             return true;
         }
@@ -53,6 +54,7 @@ bool PlayGame(int Difficulty, int Max)
 
 int main()
 {
+    srand(time(NULL));
     const int MaxDifficulty = 5;
     int LevelDifficulty = 1;
 
@@ -69,6 +71,6 @@ int main()
         }
     }
 
-    std::cout << "\n You're through the last door! Amazing work operative.\n";
+    std::cout << "\n***You're through the last door! Amazing work operative.***\n";
     return 0;
 }
