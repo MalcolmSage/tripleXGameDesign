@@ -1,10 +1,15 @@
 #include <iostream>
 
-int main()
+void PrintIntroduction(int Difficulty)
+{
+    std::cout << "\n\nYou are a secret agent breaking into a level " << Difficulty;
+    std::cout << " secure server room.\n Enter the correct code to continue...\n\n";
+}
+
+bool PlayGame(int Difficulty)
 {
     // Print the game setting to terminal
-    std::cout << "You are a secret agent breaking into a secure server room\n";
-    std::cout << "Enter the correct code to continue...\n\n";
+    PrintIntroduction(Difficulty);
 
     // generate three numbers for code breaking
     const int CodeA = 4;
@@ -17,7 +22,7 @@ int main()
     // print sum and product to terminal
     std::cout << "+ There are 3 numbers in the code\n";
     std::cout << "\n+ The codes add up to: " << CodeSum;
-    std::cout << "\n+ The codes multiply to give: " << CodeProduct;
+    std::cout << "\n+ The codes multiply to give: " << CodeProduct << std::endl;
 
     // get user input for code guess
     int GuessA, GuessB, GuessC;
@@ -30,12 +35,30 @@ int main()
     if (GuessSum == CodeSum && GuessProduct == CodeProduct)
     {
         std::cout << "You did it!\n";
-    }   
-    else 
+        return true;
+    }
+    else
     {
         std::cout << "You didn't do it.\n";
-
+        return false;
     }
- 
+}
+
+int main()
+{
+    int LevelDifficulty = 1;
+    while (LevelDifficulty < 10)
+    {
+        bool bLevelComplete = PlayGame(LevelDifficulty);
+        std::cin.clear(); //Ckears aby errors
+        std::cin.ignore();  // Discards the buffer
+
+        if (bLevelComplete)
+        {
+            /* Increase level difficulty */
+            ++LevelDifficulty;
+        }
+        
+    }
     return 0;
 }
